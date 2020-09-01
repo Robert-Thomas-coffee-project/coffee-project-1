@@ -1,7 +1,7 @@
 "use strict"
 
 function renderCoffee(coffee) {
-    var html = '<div class="coffee">';
+    var html = '<div class="coffee col-6">';
     html += '<h3>' + coffee.name +  '</h3>'
     html += '<p>' + coffee.roast + '</p>';
     html += '</div>';
@@ -89,4 +89,3 @@ var newRoast = document.getElementById("new-selection")
 var submit = document.getElementById("user-submit")
 
 submit.addEventListener("click",userCoffee)
-
