@@ -55,3 +55,12 @@ var roastSelection = document.querySelector('#roast-selection');
 tbody.innerHTML = renderCoffees(coffees);
 
 submitButton.addEventListener('click', updateCoffees);
+
+var nameSearch = document.getElementById("nameSearch");
+
+var coffeValue = function(){
+
+}
+
+
+nameSearch.addEventListener("keydown", coffeValue)
