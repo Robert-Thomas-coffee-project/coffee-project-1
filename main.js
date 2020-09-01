@@ -1,13 +1,14 @@
 "use strict"
-
+// renders coffee html
 function renderCoffee(coffee) {
     var html = '<div class="coffee col-6">';
-    html += '<h3>' + coffee.name +  '</h3>'
-    html += '<p>' + coffee.roast + '</p>';
+    html += '<h3 class="d-inline-block px-1">' + coffee.name +  '</h3>'
+    html += '<p class="d-inline-block px-1 text-muted">' + coffee.roast + '</p>';
     html += '</div>';
     return html;
 }
 
+// puts items in ascendng order
 function renderCoffees(coffees) {
     var html = '';
     for(var i = 0; i < coffees.length; i++) {
@@ -16,6 +17,7 @@ function renderCoffees(coffees) {
     return html;
 }
 
+// updates coffee menu
 function updateCoffees() {
     var selectedRoast = roastSelection.value;
     coffees.forEach(function (coffee) {
@@ -27,6 +29,7 @@ function updateCoffees() {
     coffeeMenu.innerHTML = renderCoffees(filteredCoffees);
 }
 
+// coffee array
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
 var coffees = [
     {id: 1, name: 'Light City', roast: 'light'},
@@ -44,20 +47,25 @@ var coffees = [
     {id: 13, name: 'Italian', roast: 'dark'},
     {id: 14, name: 'French', roast: 'dark'},
 ];
+
+// variables
 var filteredCoffees = [];
 var coffeeMenu = document.querySelector('#coffees');
 var submitButton = document.querySelector('#submit');
 var roastSelection = document.querySelector('#roast-selection');
-
+var nameSearch = document.getElementById("nameSearch");
+//sets the HTML
 coffeeMenu.innerHTML = renderCoffees(coffees);
 
+// 1st submit button
 submitButton.addEventListener('click', ()=> {
     filteredCoffees = [];
     updateCoffees();
 })
 
-var nameSearch = document.getElementById("nameSearch");
 
+
+//text input search for coffee
 var coffeeValue = function(){
     let searchName = nameSearch.value;
 
@@ -70,6 +78,7 @@ var coffeeValue = function(){
     )
 }
 
+//seaches while typing
 nameSearch.addEventListener("keyup", coffeeValue) ;
 roastSelection.addEventListener('change', ()=> {
     filteredCoffees = [];
@@ -78,14 +87,18 @@ roastSelection.addEventListener('change', ()=> {
 
                                      // creating users coffee
 
+//adds user input to menu
 var userCoffee = function () {
     console.log(newCoffee.value);
     coffees.push({id: coffees.length+1, name: newCoffee.value, roast: newRoast.value},)
+    filteredCoffees = [];
     updateCoffees();
 }
 
+//variables
 var newCoffee = document.getElementById("newCoffee")
 var newRoast = document.getElementById("new-selection")
 var submit = document.getElementById("user-submit")
 
+//2ns submit button
 submit.addEventListener("click",userCoffee)
