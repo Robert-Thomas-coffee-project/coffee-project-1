@@ -16,26 +16,16 @@ function renderCoffees(coffees) {
     return html;
 }
 
-function updateCoffees(e) {
-    e.preventDefault(); // don't submit the form, we just want to update the data
+function updateCoffees() {
     var selectedRoast = roastSelection.value;
-    var filteredCoffees = [];
     coffees.forEach(function (coffee) {
+        if(selectedRoast === "all") filteredCoffees.push(coffee);
         if (coffee.roast === selectedRoast) {
             filteredCoffees.push(coffee);
         }
-
-    });
-
-    if(nameSearch.value.length > 0){
-        var selectedRoast = roastSelection.value;
-        filteredCoffees.forEach(function(coffee) {
-            if (coffee.roast === selectedRoast) {
-                filteredCoffees.push(coffee);
-            }
-    });
+    })
     coffeeMenu.innerHTML = renderCoffees(filteredCoffees);
-}}
+}
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
 var coffees = [
@@ -54,36 +44,34 @@ var coffees = [
     {id: 13, name: 'Italian', roast: 'dark'},
     {id: 14, name: 'French', roast: 'dark'},
 ];
-
+var filteredCoffees = [];
 var coffeeMenu = document.querySelector('#coffees');
 var submitButton = document.querySelector('#submit');
 var roastSelection = document.querySelector('#roast-selection');
 
 coffeeMenu.innerHTML = renderCoffees(coffees);
 
-submitButton.addEventListener('click', updateCoffees);
+submitButton.addEventListener('click', ()=> {
+    filteredCoffees = [];
+    updateCoffees();
+})
 
 var nameSearch = document.getElementById("nameSearch");
 
 var coffeeValue = function(){
     let searchName = nameSearch.value;
-    var filteredCoffees = [];
-    coffees.forEach(function(coffee) {
-        if (coffee.name.toLowerCase().startsWith(searchName.toLowerCase())) {
-            filteredCoffees.push(coffee);
-        }
-    });
-    coffeeMenu.innerHTML = renderCoffees(filteredCoffees);
+
+    coffeeMenu.innerHTML = renderCoffees(
+        filteredCoffees.filter(function(coffee) {
+            if (coffee.name.toLowerCase().startsWith(searchName.toLowerCase())) {
+                return coffee;
+            }
+        })
+    )
 }
 
-var roastSearch = ()=>{
-    var selectedRoast = roastSelection.value;
-    filteredCoffees.forEach(function(coffee) {
-        if (coffee.roast === selectedRoast) {
-            filteredCoffees.push(coffee);
-        }
-    });
-    // coffeeMenu.innerHTML = renderCoffees(filteredCoffees);
-}
-nameSearch.addEventListener("keyup", updateCoffees) ;
-roastSelection.addEventListener('change', updateCoffees);
+nameSearch.addEventListener("keyup", coffeeValue) ;
+roastSelection.addEventListener('change', ()=> {
+    filteredCoffees = [];
+    updateCoffees();
+})
