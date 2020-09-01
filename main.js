@@ -75,3 +75,18 @@ roastSelection.addEventListener('change', ()=> {
     filteredCoffees = [];
     updateCoffees();
 })
+
+                                     // creating users coffee
+
+var userCoffee = function () {
+    console.log(newCoffee.value);
+    coffees.push({id: coffees.length+1, name: newCoffee.value, roast: newRoast.value},)
+    updateCoffees();
+}
+
+var newCoffee = document.getElementById("newCoffee")
+var newRoast = document.getElementById("new-selection")
+var submit = document.getElementById("user-submit")
+
+submit.addEventListener("click",userCoffee)
+
