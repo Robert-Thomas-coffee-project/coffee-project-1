@@ -8,14 +8,15 @@
 <body>
     <h1>Coffee!</h1>
     <form>
-        <label for="roast-selection"></label>
-        <select id="roast-selection">
+        <label for="roast-selection">Roast</label>
+        <select id="roast-selection" name="roast-selection">
             <option>light</option>
             <option>medium</option>
             <option>dark</option>
         </select>
+        <label for="nameSearch">Name</label>
+        <input id="nameSearch" name="nameSearch" type="text">
         <input id="submit" type="submit" />
-        <input id="nameSearch" type="text">
     </form>
 
     <div id="coffees"></div>
