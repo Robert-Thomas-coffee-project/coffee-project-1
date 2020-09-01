@@ -19,6 +19,7 @@ function renderCoffees(coffees) {
 
 // updates coffee menu
 function updateCoffees() {
+    filteredCoffees = []
     var selectedRoast = roastSelection.value;
     coffees.forEach(function (coffee) {
         if(selectedRoast === "all") filteredCoffees.push(coffee);
@@ -76,22 +77,20 @@ const coffeeValue = function(){
 
 //adds user search query input to menu
 const userCoffee = function () {
-    coffees.push({id: coffees.length+1, name: newCoffee.value, roast: newRoast.value},)
-    filteredCoffees = [];
-    updateCoffees();
+    if(newCoffee.value.length>0) {
+        coffees.push({id: coffees.length + 1, name: newCoffee.value, roast: newRoast.value},)
+        updateCoffees();
+    }
 }
 
 //searches while typing
 nameSearch.addEventListener("keyup", coffeeValue) ;
-roastSelection.addEventListener('change', ()=> {
-    filteredCoffees = [];
-    updateCoffees();
-})
+roastSelection.addEventListener('change', updateCoffees)
 
 // search submit button
-submitButton.addEventListener('click', ()=> {
-    filteredCoffees = [];
-    updateCoffees();
-})
+submitButton.addEventListener('click', updateCoffees)
 // create coffee submit button
-submit.addEventListener("click",userCoffee)
+submit.addEventListener("click",()=>{
+    userCoffee();
+    newCoffee.value = "";
+})
