@@ -1,0 +1,20 @@
+#btn{
+    height: 40px;
+    width: 150px;
+    background-color: #00ABA9;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 6px;
+    color: #ffffff;
+    transition-duration: 6s;
+}
+
+.active{
+    transform: translate(44.7vw,0) rotate(360deg);
+}
+
+#first-div{
+    margin-top: 15px;
+}

@@ -89,6 +89,7 @@ const createCoffee = ()=> {
         coffees.push({id: coffees.length + 1, name: newCoffee.value, roast: newRoast.value});
         saveLocalStorage();
         updateCoffees();
+
     }
 };
 
@@ -102,4 +103,20 @@ submitButton.addEventListener('click', updateCoffees);
 submit.addEventListener("click",()=>{
     createCoffee();
     newCoffee.value = "";
+    animate();
 });
+
+                                            // animation
+
+var button = document.getElementById("btn");
+
+var animate = function () {
+    button.classList.remove("d-none");
+    setTimeout(function(){button.className += " active";}, 100);
+    document.getElementById('btn').click();
+    setTimeout(function(){button.className += " d-none ";
+        button.classList.remove("active");}, 7000);
+
+}
+
+button.addEventListener("click", animate)
