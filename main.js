@@ -8,7 +8,7 @@ function renderCoffee(coffee) {
     return html;
 }
 
-// puts items in ascending order
+// renders items in ascending order
 function renderCoffees(coffees) {
     var html = '';
     for(var i = 0; i < coffees.length; i++) {
@@ -32,7 +32,7 @@ function updateCoffees() {
 
 // coffee array
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
-const coffees = [
+let coffees = [
     {id: 1, name: 'Light City', roast: 'light'},
     {id: 2, name: 'Half City', roast: 'light'},
     {id: 3, name: 'Cinnamon', roast: 'light'},
@@ -49,22 +49,30 @@ const coffees = [
     {id: 14, name: 'French', roast: 'dark'},
 ];
 
-
-// variables
+// default vars
 let filteredCoffees = [...coffees];
 let coffeeMenu = document.querySelector('#coffees');
 let submitButton = document.querySelector('#submit');
 let roastSelection = document.querySelector('#roast-selection');
 let nameSearch = document.getElementById("nameSearch");
 // create coffee vars
-let newCoffee = document.getElementById("newCoffee")
-let newRoast = document.getElementById("new-selection")
-let submit = document.getElementById("user-submit")
-//sets the HTML
+let newCoffee = document.getElementById("newCoffee");
+let newRoast = document.getElementById("new-selection");
+let submit = document.getElementById("user-submit");
+
+// create localStorage
+const saveLocalStorage = ()=>{
+    let JSONReadyCoffees = JSON.stringify(coffees);
+    localStorage.setItem('coffees',JSONReadyCoffees);
+    coffees = JSON.parse(localStorage['coffees']);
+};
+
+//render innerHTML from js || localStorage
+localStorage.hasOwnProperty("coffees") ? (coffees = JSON.parse(localStorage['coffees'])) : saveLocalStorage();
 coffeeMenu.innerHTML = renderCoffees(coffees);
 
-//text input search for coffee
-const coffeeValue = function(){
+//text input search
+const coffeeSearchValue = ()=>{
     let searchName = nameSearch.value;
     coffeeMenu.innerHTML = renderCoffees(
         filteredCoffees.filter(function(coffee) {
@@ -73,24 +81,25 @@ const coffeeValue = function(){
             }
         })
     )
-}
+};
 
-//adds user search query input to menu
-const userCoffee = function () {
-    if(newCoffee.value.length>0) {
-        coffees.push({id: coffees.length + 1, name: newCoffee.value, roast: newRoast.value},)
+// save new coffee to localStorage & render new menu
+const createCoffee = ()=> {
+    if(newCoffee.value) {
+        coffees.push({id: coffees.length + 1, name: newCoffee.value, roast: newRoast.value});
+        saveLocalStorage();
         updateCoffees();
     }
-}
+};
 
-//searches while typing
-nameSearch.addEventListener("keyup", coffeeValue) ;
-roastSelection.addEventListener('change', updateCoffees)
+//dynamic input search
+nameSearch.addEventListener("keyup", coffeeSearchValue);
+roastSelection.addEventListener('change', updateCoffees);
 
 // search submit button
-submitButton.addEventListener('click', updateCoffees)
+submitButton.addEventListener('click', updateCoffees);
 // create coffee submit button
 submit.addEventListener("click",()=>{
-    userCoffee();
+    createCoffee();
     newCoffee.value = "";
-})
+});
