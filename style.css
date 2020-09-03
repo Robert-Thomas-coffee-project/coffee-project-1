@@ -5,7 +5,10 @@ body{
 h1,h2,h3,h4,h5,label{
     font-family: 'Caveat Brush', cursive;
     color: white;
-    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.7);
+}
+h1{
+    font-size: 4em;
 }
 label{
     font-size: 1.2em;
