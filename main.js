@@ -2,7 +2,7 @@
 // create innerHTML
 function renderCoffee(coffee) {
     return `
-        <div class="coffee col-6">
+        <div class="coffee col-6 d-flex align-items-baseline">
             <h3 class="d-inline-block px-1">${coffee.name}</h3>
             <p class="d-inline-block px-1 text-muted">${coffee.roast}</p>
         </div> 
