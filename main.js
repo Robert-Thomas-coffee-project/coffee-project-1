@@ -154,6 +154,8 @@ const sizeCheck = ()=>{
     }else if (opt3.checked) {
         item.size = "L"
         item.prize = 3.65;
+    }else{
+        return;
     }
     document.getElementById("shoppingForm").reset();
     $('#sizeCheckModal').modal('hide');
