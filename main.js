@@ -123,21 +123,22 @@ button.addEventListener("click", animate);
 // receipt
 function renderReceipt(c) {
     let html = document.getElementById("coffeeReceipt").innerHTML;
-    html += '<div class="coffee col-6">';
-    html += '<h3 class="d-inline-block px-1 text-dark">'+ c.name +'</h3>';
-    html += '<p>'+c.size+'</p>';
-    html += '<p>'+c.prize+'</p>';
+    html += '<div class="coffee col-6 d-flex justify-content-center">';
+    html += '<h5 class="d-inline-block px-1 text-dark float-left">'+ c.name +'</h5>';
+    html += '<h5 class="d-inline-block px-1 text-dark float-left">'+c.size+'</h5>';
+    html += '<h5 class="d-inline-block px-1 text-dark float-right">'+c.prize+'</h5>';
     html += '</div>';
     document.getElementById("coffeeReceipt").innerHTML = html;
     $('#coffeeModal').modal('show');
     return html;
 }
+
+// choose coffee modal
 let chosenCoffee = '';
 const coffeeLog = (x)=> {
     chosenCoffee = x.firstChild.innerText;
     $('#sizeCheckModal').modal('show');
 }
-
 const coffeeSize = document.getElementById('toCart');
 const opt1 = document.getElementById('opt1');
 const opt2 = document.getElementById('opt2');
