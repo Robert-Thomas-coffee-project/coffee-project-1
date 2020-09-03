@@ -122,12 +122,14 @@ button.addEventListener("click", animate);
 
 // receipt
 function renderReceipt(c) {
+    cartCount++;
     let html = document.getElementById("coffeeReceipt").innerHTML;
-    html += '<div class="coffee col-6 d-flex justify-content-center">';
-    html += '<h5 class="d-inline-block px-1 text-dark float-left">'+ c.name +'</h5>';
-    html += '<h5 class="d-inline-block px-1 text-dark float-left">'+c.size+'</h5>';
-    html += '<h5 class="d-inline-block px-1 text-dark float-right">'+c.prize+'</h5>';
-    html += '</div>';
+    html += '<tr>';
+    html += '<th scope="row">'+cartCount+'</th>'
+    html += '<td class="">'+ c.name +'</td>';
+    html += '<td class="">'+c.size+'</td>';
+    html += '<td class="">'+c.prize+'</td>';
+    html += '</tr>';
     document.getElementById("coffeeReceipt").innerHTML = html;
     $('#coffeeModal').modal('show');
     return html;
@@ -135,6 +137,7 @@ function renderReceipt(c) {
 
 // choose coffee modal
 let chosenCoffee = '';
+let cartCount = 0;
 const coffeeLog = (x)=> {
     chosenCoffee = x.firstChild.innerText;
     $('#sizeCheckModal').modal('show');
