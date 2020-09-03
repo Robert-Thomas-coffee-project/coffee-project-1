@@ -1,19 +1,20 @@
 "use strict"
 // create innerHTML
 function renderCoffee(coffee) {
-    var html = '<div class="coffee col-6">';
-    html += '<h3 class="d-inline-block px-1">' + coffee.name +  '</h3>'
-    html += '<p class="d-inline-block px-1 text-muted">' + coffee.roast + '</p>';
-    html += '</div>';
-    return html;
+    return `
+        <div class="coffee col-6">
+            <h3 class="d-inline-block px-1">${coffee.name}</h3>
+            <p class="d-inline-block px-1 text-muted">${coffee.roast}</p>
+        </div> 
+    `
 }
 
 // renders items in ascending order
 function renderCoffees(coffees) {
     var html = '';
-    for(var i = 0; i < coffees.length; i++) {
-        html += renderCoffee(coffees[i]);
-    }
+    coffees.forEach((coffee)=>{
+        html += renderCoffee(coffee);
+    })
     return html;
 }
 
@@ -89,7 +90,7 @@ const createCoffee = ()=> {
         coffees.push({id: coffees.length + 1, name: newCoffee.value, roast: newRoast.value});
         saveLocalStorage();
         updateCoffees();
-
+        animate();
     }
 };
 
@@ -103,20 +104,18 @@ submitButton.addEventListener('click', updateCoffees);
 submit.addEventListener("click",()=>{
     createCoffee();
     newCoffee.value = "";
-    animate();
 });
 
-                                            // animation
-
+// animation
 var button = document.getElementById("btn");
-
-var animate = function () {
+var animate = ()=> {
     button.classList.remove("d-none");
-    setTimeout(function(){button.className += " active";}, 100);
+    setTimeout(()=>{ button.className += " active "; }, 100);
     document.getElementById('btn').click();
-    setTimeout(function(){button.className += " d-none ";
-        button.classList.remove("active");}, 7000);
+    setTimeout(()=>{
+        button.className += " d-none ";
+        button.classList.remove("active");}, 7000
+    );
+};
 
-}
-
-button.addEventListener("click", animate)
+button.addEventListener("click", animate);
