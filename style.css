@@ -15,12 +15,13 @@ label{
 }
 .text-muted {
     color: #88c3f7!important;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.4) !important;
 }
 
 #btn{
     height: 40px;
     width: 150px;
-    background-color: #00ABA9;
+    background-color: #0069d9;
     border-radius: 10px;
     display: flex;
     flex-direction: column;

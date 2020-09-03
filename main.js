@@ -1,12 +1,13 @@
 "use strict"
 // create innerHTML
 function renderCoffee(coffee) {
-    return `
-        <div class="coffee col-6 d-flex align-items-baseline">
-            <h3 class="d-inline-block px-1">${coffee.name}</h3>
-            <p class="d-inline-block px-1 text-muted">${coffee.roast}</p>
-        </div> 
-    `
+    var html = '<div class="coffee col-6 d-flex align-items-baseline">';
+    html += '<a onclick="coffeeLog(this)" class="finalCoffee" href="#">';
+    html += '<h3 class="d-inline-block px-1">'+ coffee.name + '</h3>';
+    html += '<p class="d-inline-block px-1 text-muted">' + coffee.roast + '</p>';
+    html += '</a>';
+    html += '</div>';
+    return html;
 }
 
 // renders items in ascending order
@@ -117,5 +118,23 @@ var animate = ()=> {
         button.classList.remove("active");}, 7000
     );
 };
-
 button.addEventListener("click", animate);
+
+// receipt
+function renderReceipt(c) {
+    var html = '<div class="coffee col-6">';
+    html += '<a class="finalCoffee" href="#">';
+    html += '<h3 class="d-inline-block px-1">'+ c +'</h3>';
+    html += '</a>'
+    html += '<p class="d-inline-block px-1 text-muted">' + c + '</p>';
+    html += '</div>';
+    return html;
+
+}
+
+var coffeeLog = function (x) {
+    var html = document.getElementById("coffeeReceipt").innerHTML;
+    var chosenCoffee = x.firstChild.innerText;
+    html += renderReceipt(chosenCoffee);
+    document.getElementById("coffeeReceipt").innerHTML = html
+}
