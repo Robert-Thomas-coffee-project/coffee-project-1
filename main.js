@@ -122,15 +122,41 @@ button.addEventListener("click", animate);
 
 // receipt
 function renderReceipt(c) {
-    let html = '<div class="coffee col-6">';
-    html += '<h3 class="d-inline-block px-1 text-dark">'+ c +'</h3>';
+    let html = document.getElementById("coffeeReceipt").innerHTML;
+    html += '<div class="coffee col-6">';
+    html += '<h3 class="d-inline-block px-1 text-dark">'+ c.name +'</h3>';
+    html += '<p>'+c.size+'</p>';
+    html += '<p>'+c.prize+'</p>';
     html += '</div>';
+    document.getElementById("coffeeReceipt").innerHTML = html;
+    $('#coffeeModal').modal('show');
     return html;
 }
-
+let chosenCoffee = '';
 const coffeeLog = (x)=> {
-    let html = document.getElementById("coffeeReceipt").innerHTML;
-    let chosenCoffee = x.firstChild.innerText;
-    html += renderReceipt(chosenCoffee);
-    document.getElementById("coffeeReceipt").innerHTML = html;
+    chosenCoffee = x.firstChild.innerText;
+    $('#sizeCheckModal').modal('show');
 }
+
+const coffeeSize = document.getElementById('toCart');
+const opt1 = document.getElementById('opt1');
+const opt2 = document.getElementById('opt2');
+const opt3 = document.getElementById('opt3');
+const sizeCheck = ()=>{
+    let item = {};
+    item.name = chosenCoffee;
+    if (opt1.checked) {
+        item.size = "S"
+        item.prize = 2.15;
+    }else if (opt2.checked) {
+        item.size = "M";
+        item.prize = 2.45;
+    }else if (opt3.checked) {
+        item.size = "L"
+        item.prize = 3.65;
+    }
+    document.getElementById("shoppingForm").reset();
+    $('#sizeCheckModal').modal('hide');
+    renderReceipt(item);
+}
+coffeeSize.addEventListener('click',sizeCheck);

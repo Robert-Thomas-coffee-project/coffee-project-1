@@ -78,6 +78,41 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="sizeCheckModal" tabindex="-1" role="dialog" aria-labelledby="sizeCheckLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="modal-title text-dark" id="sizeCheckLabel">Please Select Size</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <form id="shoppingForm">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="opt1"
+                                           value="1">
+                                    <label class="form-check-label text-dark" for="opt1">Small</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="optOptions" id="opt2" value="2">
+                                    <label class="form-check-label text-dark" for="opt2">Medium</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="optOptions" id="opt3" value="3">
+                                    <label class="form-check-label text-dark" for="opt3">Large</label>
+                                </div>
+                                <div class="float-right">
+                                    <button id="toCart" type="button" class="btn btn-primary">Add to Cart</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
