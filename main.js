@@ -123,13 +123,9 @@ button.addEventListener("click", animate);
 // receipt
 function renderReceipt(c) {
     var html = '<div class="coffee col-6">';
-    html += '<a class="finalCoffee" href="#">';
-    html += '<h3 class="d-inline-block px-1">'+ c +'</h3>';
-    html += '</a>'
-    html += '<p class="d-inline-block px-1 text-muted">' + c + '</p>';
+    html += '<h3 class="d-inline-block px-1 text-dark">'+ c +'</h3>';
     html += '</div>';
     return html;
-
 }
 
 var coffeeLog = function (x) {
@@ -138,3 +134,7 @@ var coffeeLog = function (x) {
     html += renderReceipt(chosenCoffee);
     document.getElementById("coffeeReceipt").innerHTML = html
 }
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+})
