@@ -1,7 +1,7 @@
 "use strict"
 // create innerHTML
 function renderCoffee(coffee) {
-    var html = '<div class="coffee col-6 d-flex align-items-baseline">';
+    let html = '<div class="coffee col-6 d-flex align-items-baseline">';
     html += '<a onclick="coffeeLog(this)" class="finalCoffee" href="#">';
     html += '<h3 class="d-inline-block px-1">'+ coffee.name + '</h3>';
     html += '<p class="d-inline-block px-1 text-muted">' + coffee.roast + '</p>';
@@ -11,8 +11,8 @@ function renderCoffee(coffee) {
 }
 
 // renders items in ascending order
-function renderCoffees(coffees) {
-    var html = '';
+const renderCoffees = (coffees)=> {
+    let html = '';
     coffees.forEach((coffee)=>{
         html += renderCoffee(coffee);
     })
@@ -20,7 +20,7 @@ function renderCoffees(coffees) {
 }
 
 // updates coffee menu
-function updateCoffees() {
+const updateCoffees = ()=> {
     filteredCoffees = []
     var selectedRoast = roastSelection.value;
     coffees.forEach(function (coffee) {
@@ -108,8 +108,8 @@ submit.addEventListener("click",()=>{
 });
 
 // animation
-var button = document.getElementById("btn");
-var animate = ()=> {
+const button = document.getElementById("btn");
+const animate = ()=> {
     button.classList.remove("d-none");
     setTimeout(()=>{ button.className += " active "; }, 100);
     document.getElementById('btn').click();
@@ -122,19 +122,15 @@ button.addEventListener("click", animate);
 
 // receipt
 function renderReceipt(c) {
-    var html = '<div class="coffee col-6">';
+    let html = '<div class="coffee col-6">';
     html += '<h3 class="d-inline-block px-1 text-dark">'+ c +'</h3>';
     html += '</div>';
     return html;
 }
 
-var coffeeLog = function (x) {
-    var html = document.getElementById("coffeeReceipt").innerHTML;
-    var chosenCoffee = x.firstChild.innerText;
+const coffeeLog = (x)=> {
+    let html = document.getElementById("coffeeReceipt").innerHTML;
+    let chosenCoffee = x.firstChild.innerText;
     html += renderReceipt(chosenCoffee);
-    document.getElementById("coffeeReceipt").innerHTML = html
+    document.getElementById("coffeeReceipt").innerHTML = html;
 }
-
-$('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-})
