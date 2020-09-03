@@ -2,10 +2,11 @@
 // create innerHTML
 function renderCoffee(coffee) {
     var html = '<div class="coffee col-6">';
-    html += '<h3 class="d-inline-block px-1">' + coffee.name +  '</h3>'
+    html += '<a onclick="coffeeLog(this)" class="finalCoffee" href="#"><h3 class="d-inline-block px-1 text-dark">'+ coffee.name + '</h3></a>'
     html += '<p class="d-inline-block px-1 text-muted">' + coffee.roast + '</p>';
     html += '</div>';
     return html;
+
 }
 
 // renders items in ascending order
@@ -26,8 +27,13 @@ function updateCoffees() {
         if (coffee.roast === selectedRoast) {
             filteredCoffees.push(coffee);
         }
+
     })
     coffeeMenu.innerHTML = renderCoffees(filteredCoffees);
+    console.log(filteredCoffees)
+
+
+
 }
 
 // coffee array
@@ -78,9 +84,12 @@ const coffeeSearchValue = ()=>{
         filteredCoffees.filter(function(coffee) {
             if (coffee.name.toLowerCase().includes(searchName.toLowerCase())) {
                 return coffee;
+
             }
+            // console.log(searchName)
         })
     )
+
 };
 
 // save new coffee to localStorage & render new menu
@@ -99,6 +108,7 @@ roastSelection.addEventListener('change', updateCoffees);
 
 // search submit button
 submitButton.addEventListener('click', updateCoffees);
+submitButton.addEventListener('click', renderCoffee);
 // create coffee submit button
 submit.addEventListener("click",()=>{
     createCoffee();
@@ -120,3 +130,31 @@ var animate = function () {
 }
 
 button.addEventListener("click", animate)
+
+
+                                    // receipt
+
+
+
+function renderReceipt(c) {
+    var html = '<div class="coffee col-6">';
+    html += '<a class="finalCoffee" href="#"><h3 class="d-inline-block px-1 text-dark">'+ c +'</h3></a>'
+    html += '<p class="d-inline-block px-1 text-muted">' + c + '</p>';
+    html += '</div>';
+    return html;
+
+}
+
+var coffeeLog = function (x) {
+    var html = document.getElementById("coffeeReceipt").innerHTML;
+    var chosenCoffee = x.firstChild.innerText;
+    html += renderReceipt(chosenCoffee);
+    document.getElementById("coffeeReceipt").innerHTML = html
+}
+
+
+
+
+
+
+
