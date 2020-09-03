@@ -41,6 +41,74 @@ label{
 #coffees{
     margin: 0 auto;
 }
+
+
+#c {
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+    color: #ffffff;
+}
+
+#o{
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-delay: .5s;
+    animation-iteration-count: infinite;
+    color: #ffffff;
+}
+
+#f{
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    color: #ffffff;
+}
+
+#f2{
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-delay: 1.5s;
+    animation-iteration-count: infinite;
+    color: #ffffff;
+}
+
+#e{
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    color: #ffffff;
+}
+
+#e2{
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-delay: 2.5s;
+    animation-iteration-count: infinite;
+    color: #ffffff;
+}
+
+#special{
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    color: #ffffff;
+}
+
+
+
+
+@keyframes flash{
+    from{color: #ffffff;}
+    to{color:#88c3f7}
+
+
+}
+
 @media only screen and (min-width: 600px) {
     body{
         background: url("img/coffe-bg.jpg") no-repeat fixed center;
