@@ -12,10 +12,10 @@ function renderCoffee(coffee) {
 
 // renders items in ascending order
 const renderCoffees = (coffees)=> {
-    let html = '';
-    coffees.forEach((coffee)=>{
-        html += renderCoffee(coffee);
-    })
+    var html = '';
+    for(var i = 0; i < coffees.length; i++) {
+        html += renderCoffee(coffees[i]);
+    }
     return html;
 }
 
