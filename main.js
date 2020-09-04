@@ -74,6 +74,16 @@ const saveLocalStorage = ()=>{
 localStorage.hasOwnProperty("coffees") ? (coffees = JSON.parse(localStorage['coffees'])) : saveLocalStorage();
 coffeeMenu.innerHTML = renderCoffees(coffees);
 
+// save new coffee to localStorage & render new menu
+const createCoffee = ()=> {
+    if(newCoffee.value) {
+        coffees.push({id: coffees.length + 1, name: newCoffee.value, roast: newRoast.value});
+        saveLocalStorage();
+        updateCoffees();
+        animate();
+    }
+};
+
 //text input search
 const coffeeSearchValue = ()=>{
     let searchName = nameSearch.value;
@@ -84,16 +94,6 @@ const coffeeSearchValue = ()=>{
             }
         })
     )
-};
-
-// save new coffee to localStorage & render new menu
-const createCoffee = ()=> {
-    if(newCoffee.value) {
-        coffees.push({id: coffees.length + 1, name: newCoffee.value, roast: newRoast.value});
-        saveLocalStorage();
-        updateCoffees();
-        animate();
-    }
 };
 
 // dynamic input search
@@ -109,12 +109,12 @@ submit.addEventListener("click",()=>{
     newCoffee.value = "";
 });
 
-// animation
+// animation on create coffee
 const button = document.getElementById("btn");
 const animate = ()=> {
     button.classList.remove("d-none");
     setTimeout(()=>{ button.className += " active "; }, 100);
-    document.getElementById('btn').click();
+    button.click();
     setTimeout(()=>{
         button.className += " d-none ";
         button.classList.remove("active");}, 4000
@@ -123,12 +123,13 @@ const animate = ()=> {
 button.addEventListener("click", animate);
 
 // receipt
+const coffeeReceipt = document.getElementById("coffeeReceipt");
 const renderReceipt = ()=> {
     let html = '';
     cartItems.forEach((c,i)=>{
        html+= renderItem(c,i);
     })
-    document.getElementById("coffeeReceipt").innerHTML = html;
+    coffeeReceipt.innerHTML = html;
     cartNotification.innerText = cartItems.length > 0 ?  cartItems.length.toString(): "";
     return html;
 }
@@ -142,26 +143,24 @@ const renderItem = (c,i)=>{
     return html;
 }
 
-// choose coffee modal
+// choose coffee and size
 let chosenCoffee = '';
 let cartItems = [];
-
-const coffeeLog = (x)=> {
-    chosenCoffee = coffees.find((c)=>{
-        return c.id === Number(x.id);
-    });
-    $('#sizeCheckModal').modal('show');
-}
-
-const coffeeSize = document.getElementById('toCart');
+const sizeSelectForm = document.getElementById("shoppingForm");
+const sizeSubmit = document.getElementById('toCart');
+// form radio options
 const opt1 = document.getElementById('opt1');
 const opt2 = document.getElementById('opt2');
 const opt3 = document.getElementById('opt3');
 
+const coffeeLog = (x)=> {
+    chosenCoffee = x.firstChild.innerText;
+    $('#sizeCheckModal').modal('show');
+}
+
 const sizeCheck = ()=>{
     let item = {};
-    item.id = chosenCoffee.id;
-    item.name = chosenCoffee.name;
+    item.name = chosenCoffee;
     if (opt1.checked) {
         item.size = "S"
         item.prize = 2.15;
@@ -174,13 +173,13 @@ const sizeCheck = ()=>{
     }else{
         return;
     }
-    document.getElementById("shoppingForm").reset();
+    sizeSelectForm.reset();
     cartItems.push(item);
     saveCartLocalStorage();
-    $('#sizeCheckModal').modal('hide');
     renderReceipt();
+    $('#sizeCheckModal').modal('hide');
 }
-coffeeSize.addEventListener('click',sizeCheck);
+sizeSubmit.addEventListener('click',sizeCheck);
 
 // create cart to localStorage
 const saveCartLocalStorage = ()=>{
