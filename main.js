@@ -179,7 +179,6 @@ const sizeCheck = ()=>{
     saveCartLocalStorage();
     $('#sizeCheckModal').modal('hide');
     renderReceipt();
-    $('#coffeeModal').modal('show');
 }
 coffeeSize.addEventListener('click',sizeCheck);
 
