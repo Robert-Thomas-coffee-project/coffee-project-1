@@ -1,4 +1,34 @@
 "use strict"
+
+// VARIABLES
+let coffees = [
+    {id: 1, name: 'Light City', roast: 'light'},
+    {id: 2, name: 'Half City', roast: 'light'},
+    {id: 3, name: 'Cinnamon', roast: 'light'},
+    {id: 4, name: 'City', roast: 'medium'},
+    {id: 5, name: 'American', roast: 'medium'},
+    {id: 6, name: 'Breakfast', roast: 'medium'},
+    {id: 7, name: 'High', roast: 'dark'},
+    {id: 8, name: 'Continental', roast: 'dark'},
+    {id: 9, name: 'New Orleans', roast: 'dark'},
+    {id: 10, name: 'European', roast: 'dark'},
+    {id: 11, name: 'Espresso', roast: 'dark'},
+    {id: 12, name: 'Viennese', roast: 'dark'},
+    {id: 13, name: 'Italian', roast: 'dark'},
+    {id: 14, name: 'French', roast: 'dark'},
+];
+
+let filteredCoffees = [...coffees];
+const coffeeMenu = document.querySelector('#coffees');
+const submitButton = document.querySelector('#submit');
+const roastSelection = document.querySelector('#roast-selection');
+const nameSearch = document.getElementById("nameSearch");
+const cartNotification = document.getElementById('cartBadge');
+const newCoffee = document.getElementById("newCoffee");
+const newRoast = document.getElementById("new-selection");
+const submit = document.getElementById("user-submit");
+//
+
 // create innerHTML
 function renderCoffee(coffee) {
     let html = '<div class="coffee col-6 d-flex align-items-baseline">';
@@ -32,48 +62,6 @@ const updateCoffees = ()=> {
     coffeeMenu.innerHTML = renderCoffees(filteredCoffees);
 }
 
-// coffee array
-// from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
-let coffees = [
-    {id: 1, name: 'Light City', roast: 'light'},
-    {id: 2, name: 'Half City', roast: 'light'},
-    {id: 3, name: 'Cinnamon', roast: 'light'},
-    {id: 4, name: 'City', roast: 'medium'},
-    {id: 5, name: 'American', roast: 'medium'},
-    {id: 6, name: 'Breakfast', roast: 'medium'},
-    {id: 7, name: 'High', roast: 'dark'},
-    {id: 8, name: 'Continental', roast: 'dark'},
-    {id: 9, name: 'New Orleans', roast: 'dark'},
-    {id: 10, name: 'European', roast: 'dark'},
-    {id: 11, name: 'Espresso', roast: 'dark'},
-    {id: 12, name: 'Viennese', roast: 'dark'},
-    {id: 13, name: 'Italian', roast: 'dark'},
-    {id: 14, name: 'French', roast: 'dark'},
-];
-
-// default vars
-let filteredCoffees = [...coffees];
-const coffeeMenu = document.querySelector('#coffees');
-const submitButton = document.querySelector('#submit');
-const roastSelection = document.querySelector('#roast-selection');
-const nameSearch = document.getElementById("nameSearch");
-const cartNotification = document.getElementById('cartBadge');
-// create coffee vars
-const newCoffee = document.getElementById("newCoffee");
-const newRoast = document.getElementById("new-selection");
-const submit = document.getElementById("user-submit");
-
-// create localStorage
-const saveLocalStorage = ()=>{
-    let JSONReadyCoffees = JSON.stringify(coffees);
-    localStorage.setItem('coffees',JSONReadyCoffees);
-    coffees = JSON.parse(localStorage['coffees']);
-};
-
-//render innerHTML from js || localStorage
-localStorage.hasOwnProperty("coffees") ? (coffees = JSON.parse(localStorage['coffees'])) : saveLocalStorage();
-coffeeMenu.innerHTML = renderCoffees(coffees);
-
 // save new coffee to localStorage & render new menu
 const createCoffee = ()=> {
     if(newCoffee.value) {
@@ -83,7 +71,7 @@ const createCoffee = ()=> {
         animate();
     }
 };
-
+// SEARCH SECTION
 //text input search
 const coffeeSearchValue = ()=>{
     let searchName = nameSearch.value;
@@ -109,6 +97,18 @@ submit.addEventListener("click",()=>{
     newCoffee.value = "";
 });
 
+// LOCAL STORAGE
+// create localStorage
+const saveLocalStorage = ()=>{
+    let JSONReadyCoffees = JSON.stringify(coffees);
+    localStorage.setItem('coffees',JSONReadyCoffees);
+    coffees = JSON.parse(localStorage['coffees']);
+};
+
+//render innerHTML from js || localStorage
+localStorage.hasOwnProperty("coffees") ? (coffees = JSON.parse(localStorage['coffees'])) : saveLocalStorage();
+coffeeMenu.innerHTML = renderCoffees(coffees);
+
 // animation on create coffee
 const button = document.getElementById("btn");
 const animate = ()=> {
@@ -122,7 +122,7 @@ const animate = ()=> {
 };
 button.addEventListener("click", animate);
 
-// receipt
+// RECEIPT
 const coffeeReceipt = document.getElementById("coffeeReceipt");
 const renderReceipt = ()=> {
     let html = '';
