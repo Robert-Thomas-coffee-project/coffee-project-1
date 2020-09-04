@@ -115,7 +115,7 @@ const animate = ()=> {
     document.getElementById('btn').click();
     setTimeout(()=>{
         button.className += " d-none ";
-        button.classList.remove("active");}, 7000
+        button.classList.remove("active");}, 4000
     );
 };
 button.addEventListener("click", animate);
