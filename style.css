@@ -52,7 +52,7 @@ label{
     margin: 0 auto;
 }
 
-
+/*tile flash animation*/
 #c {
     animation-name: flash;
     animation-duration: 1s;
@@ -112,7 +112,9 @@ label{
     from{color: #ffffff;}
     to{color:#88c3f7}
 }
+/*end flash animation*/
 
+/*media queries*/
 @media only screen and (min-width: 600px) {
     body{
         background: url("img/coffe-bg.jpg") no-repeat fixed center;

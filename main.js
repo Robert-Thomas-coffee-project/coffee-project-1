@@ -2,7 +2,7 @@
 // create innerHTML
 function renderCoffee(coffee) {
     let html = '<div class="coffee col-6 d-flex align-items-baseline">';
-    html += '<a onclick="coffeeLog(this)" class="finalCoffee" href="#">';
+    html += '<a onclick="coffeeLog(this)" id="'+ coffee.id +'" class="finalCoffee" href="#">';
     html += '<h3 class="d-inline-block px-1">'+ coffee.name + '</h3>';
     html += '<p class="d-inline-block px-1 text-muted">' + coffee.roast + '</p>';
     html += '</a>';
@@ -53,14 +53,15 @@ let coffees = [
 
 // default vars
 let filteredCoffees = [...coffees];
-let coffeeMenu = document.querySelector('#coffees');
-let submitButton = document.querySelector('#submit');
-let roastSelection = document.querySelector('#roast-selection');
-let nameSearch = document.getElementById("nameSearch");
+const coffeeMenu = document.querySelector('#coffees');
+const submitButton = document.querySelector('#submit');
+const roastSelection = document.querySelector('#roast-selection');
+const nameSearch = document.getElementById("nameSearch");
+const cartNotification = document.getElementById('cartBadge');
 // create coffee vars
-let newCoffee = document.getElementById("newCoffee");
-let newRoast = document.getElementById("new-selection");
-let submit = document.getElementById("user-submit");
+const newCoffee = document.getElementById("newCoffee");
+const newRoast = document.getElementById("new-selection");
+const submit = document.getElementById("user-submit");
 
 // create localStorage
 const saveLocalStorage = ()=>{
@@ -95,13 +96,14 @@ const createCoffee = ()=> {
     }
 };
 
-//dynamic input search
+// dynamic input search
 nameSearch.addEventListener("keyup", coffeeSearchValue);
 roastSelection.addEventListener('change', updateCoffees);
 
 // search submit button
 submitButton.addEventListener('click', updateCoffees);
-// create coffee submit button
+
+// create new coffee submit button
 submit.addEventListener("click",()=>{
     createCoffee();
     newCoffee.value = "";
@@ -121,34 +123,45 @@ const animate = ()=> {
 button.addEventListener("click", animate);
 
 // receipt
-function renderReceipt(c) {
-    cartCount++;
-    let html = document.getElementById("coffeeReceipt").innerHTML;
-    html += '<tr>';
-    html += '<th scope="row">'+cartCount+'</th>'
+const renderReceipt = ()=> {
+    let html = '';
+    cartItems.forEach((c,i)=>{
+       html+= renderItem(c,i);
+    })
+    document.getElementById("coffeeReceipt").innerHTML = html;
+    cartNotification.innerText = cartItems.length > 0 ?  cartItems.length.toString(): "";
+    return html;
+}
+const renderItem = (c,i)=>{
+    let html = '<tr>';
+    html += '<th scope="row">'+(i+1)+'</th>'
     html += '<td class="">'+ c.name +'</td>';
     html += '<td class="">'+c.size+'</td>';
     html += '<td class="">'+c.prize+'</td>';
     html += '</tr>';
-    document.getElementById("coffeeReceipt").innerHTML = html;
-    $('#coffeeModal').modal('show');
     return html;
 }
 
 // choose coffee modal
 let chosenCoffee = '';
-let cartCount = 0;
+let cartItems = [];
+
 const coffeeLog = (x)=> {
-    chosenCoffee = x.firstChild.innerText;
+    chosenCoffee = coffees.find((c)=>{
+        return c.id === Number(x.id);
+    });
     $('#sizeCheckModal').modal('show');
 }
+
 const coffeeSize = document.getElementById('toCart');
 const opt1 = document.getElementById('opt1');
 const opt2 = document.getElementById('opt2');
 const opt3 = document.getElementById('opt3');
+
 const sizeCheck = ()=>{
     let item = {};
-    item.name = chosenCoffee;
+    item.id = chosenCoffee.id;
+    item.name = chosenCoffee.name;
     if (opt1.checked) {
         item.size = "S"
         item.prize = 2.15;
@@ -162,7 +175,31 @@ const sizeCheck = ()=>{
         return;
     }
     document.getElementById("shoppingForm").reset();
+    cartItems.push(item);
+    saveCartLocalStorage();
     $('#sizeCheckModal').modal('hide');
-    renderReceipt(item);
+    renderReceipt();
+    $('#coffeeModal').modal('show');
 }
 coffeeSize.addEventListener('click',sizeCheck);
+
+// create cart to localStorage
+const saveCartLocalStorage = ()=>{
+    let JSONReadyCoffees = JSON.stringify(cartItems);
+    localStorage.setItem('cartItems',JSONReadyCoffees);
+    cartItems = JSON.parse(localStorage['cartItems']);
+};
+
+//render cart innerHTML from js || localStorage
+localStorage.hasOwnProperty("cartItems") ? (cartItems = JSON.parse(localStorage['cartItems'])) : saveCartLocalStorage();
+renderReceipt(cartItems);
+
+//clear cart
+const clearCartBtn = document.getElementById('clearCart');
+const emptyCart = ()=>{
+    cartItems = [];
+    saveCartLocalStorage();
+    renderReceipt();
+    $('#coffeeModal').modal('hide');
+}
+clearCartBtn.addEventListener('click',emptyCart);
